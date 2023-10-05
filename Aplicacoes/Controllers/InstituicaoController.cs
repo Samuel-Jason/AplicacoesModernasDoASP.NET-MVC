@@ -43,5 +43,12 @@ namespace Aplicacoes.Controllers
         {
             return View(instituicoes);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
