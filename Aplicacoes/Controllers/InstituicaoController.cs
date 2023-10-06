@@ -44,9 +44,12 @@ namespace Aplicacoes.Controllers
             return View(instituicoes);
         }
 
-        public IActionResult Create()
+        public IActionResult Create(InstituicaoModel instituicao)
         {
-            return View("Create");
+            instituicoes.Add(instituicao);
+            instituicao.InstituicaoId = 
+                instituicoes.Select(i => i.InstituicaoId).Max() + 1;
+            return RedirectToAction("Index");
         }
     }
 }
