@@ -60,5 +60,29 @@ namespace Aplicacoes.Controllers
             instituicoes.Add(instituicao);
             return RedirectToAction("Index");
         }
+
+        public ActionResult Details(long id)
+        {
+            return View(instituicoes.Where(i => i.InstituicaoId == id).FirstOrDefault());
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var instituicaoExcluir = instituicoes.FirstOrDefault(i => i.InstituicaoId == id);
+
+            try
+            {
+                if (instituicaoExcluir != null)
+                {
+                    instituicoes.Remove(instituicaoExcluir);
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("NotFound");
+            }
+
+        }
     }
 }
