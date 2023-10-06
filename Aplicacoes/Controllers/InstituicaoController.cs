@@ -47,8 +47,17 @@ namespace Aplicacoes.Controllers
         public IActionResult Create(InstituicaoModel instituicao)
         {
             instituicoes.Add(instituicao);
-            instituicao.InstituicaoId = 
+            instituicao.InstituicaoId =
                 instituicoes.Select(i => i.InstituicaoId).Max() + 1;
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Edit(InstituicaoModel instituicao)
+        {
+            instituicoes.Remove(instituicoes.Where(i => i.InstituicaoId == instituicao.InstituicaoId)
+                .FirstOrDefault());
+            instituicoes.Add(instituicao);
             return RedirectToAction("Index");
         }
     }
