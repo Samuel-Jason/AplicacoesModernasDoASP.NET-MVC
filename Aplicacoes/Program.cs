@@ -1,3 +1,6 @@
+using Aplicacoes.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace Aplicacoes
 {
     public class Program
@@ -8,6 +11,7 @@ namespace Aplicacoes
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddEntityFrameworkSqlServer().AddDbContext<IESContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
 
             var app = builder.Build();
 

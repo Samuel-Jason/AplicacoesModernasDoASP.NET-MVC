@@ -17,5 +17,25 @@ namespace Aplicacoes.Controllers
         {
             return View(await  _context.Departamentos.OrderBy(c => c.Nome).ToListAsync());
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create([Bind("Nome")] DepartamentoController departamento)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _context.Add(departamento);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch (DbUpdateException) 
+            {
+                ModelState.AddModelError("", "Não foi possivel inserir os dados");
+            }
+            return View(departamento);
+        }
     }
 }
