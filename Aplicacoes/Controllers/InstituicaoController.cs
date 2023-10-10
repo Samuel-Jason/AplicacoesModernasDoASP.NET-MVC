@@ -52,11 +52,9 @@ namespace Aplicacoes.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public IActionResult Edit(InstituicaoModel instituicao)
+        public IActionResult Edit(InstituicaoModel instituicao, int id)
         {
-            instituicoes.Remove(instituicoes.Where(i => i.InstituicaoId == instituicao.InstituicaoId)
-                .FirstOrDefault());
+            instituicoes.Remove(instituicoes.Where(i => i.InstituicaoId == id).FirstOrDefault());
             instituicoes.Add(instituicao);
             return RedirectToAction("Index");
         }
