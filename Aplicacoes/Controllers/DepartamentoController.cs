@@ -1,5 +1,6 @@
 ﻿using Aplicacoes.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aplicacoes.Controllers
 {
@@ -7,9 +8,14 @@ namespace Aplicacoes.Controllers
     {
         private readonly IESContext _context;
 
-        public IActionResult Index()
+        public DepartamentoController(IESContext context)
         {
-            return View();
+            this._context = context;
+        }
+
+        public async Task<ActionResult> Index()
+        {
+            return View(await  _context.Departamentos.OrderBy(c => c.Nome).ToListAsync());
         }
     }
 }
