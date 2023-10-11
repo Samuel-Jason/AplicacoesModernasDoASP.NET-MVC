@@ -15,7 +15,7 @@ namespace Aplicacoes.Controllers
 
         public async Task<ActionResult> Index()
         {
-            return View(await  _context.Departamentos.OrderBy(c => c.Nome).ToListAsync());
+            return View(await _context.Departamentos.OrderBy(c => c.Nome).ToListAsync());
         }
 
         [HttpPost]
@@ -31,9 +31,26 @@ namespace Aplicacoes.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-            catch (DbUpdateException) 
+            catch (DbUpdateException)
             {
                 ModelState.AddModelError("", "Não foi possivel inserir os dados");
+            }
+            return View(departamento);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Edit(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var departamento = _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
+
+            if (departamento == null)
+            {
+                return NotFound(nameof(departamento));
             }
             return View(departamento);
         }
