@@ -1,5 +1,6 @@
 using Aplicacoes.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace Aplicacoes
 {

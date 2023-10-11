@@ -10,7 +10,7 @@ namespace Aplicacoes.Controllers
 
         public DepartamentoController(IESContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public async Task<ActionResult> Index()
@@ -24,7 +24,7 @@ namespace Aplicacoes.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                if (ModelState.IsValid) //MODELSTATE VERIFICA ANTES DO OBJETO SER ADICIONADO SE NAO TEM ERRO DE VALIDACAO E ENTAO GRAVA
                 {
                     _context.Add(departamento);
                     await _context.SaveChangesAsync();
