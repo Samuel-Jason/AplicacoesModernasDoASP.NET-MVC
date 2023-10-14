@@ -1,6 +1,8 @@
 ﻿using Aplicacoes.Data;
 using Aplicacoes.Models;
+using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aplicacoes.Controllers
@@ -14,14 +16,19 @@ namespace Aplicacoes.Controllers
             _context = context;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            return View(await _context.Departamentos.OrderBy(c => c.Nome).ToListAsync());
+            return View(await _context.Departamentos.Include(i => i.Instituicao).OrderBy(c => c.Nome).ToListAsync());
         }
+
+        // public async Task<ActionResult> Index()
+        //{
+        //    return View(await _context.Departamentos.OrderBy(c => c.Nome).ToListAsync());
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind("Nome")] DepartamentoController departamento)
+        public async Task<ActionResult> Create([Bind("Nome, InstituicaoId")] DepartamentoController departamento)
         {
             try
             {
@@ -48,6 +55,8 @@ namespace Aplicacoes.Controllers
             }
 
             var departamento = _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
+            ViewBag.Instituicoes = new SelectList(_context.Instituicoes.OrderBy(b => b.Nome), "InstituicaoID", "Nome", departamento.InstituicaoID);
+            return View(departamento);
             await _context.SaveChangesAsync();
 
             //    if(!= DepartamentoExists(DepartamentoController.DepartamentoID)) VERIFICA SE EXITE NA BASE ALGUM OBJ COM ID RECEBIDO

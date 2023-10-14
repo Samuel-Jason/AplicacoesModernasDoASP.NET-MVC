@@ -28,8 +28,8 @@ namespace Aplicacoes.Data
 
             var departamentos = new DepartamentoModel[]
             {
-                new DepartamentoModel { Nome="Ciencia da computacao"},
-                new DepartamentoModel { Nome="Ciencia de alimentos"}
+                new DepartamentoModel { Nome="Ciencia da computacao", InstituicaoId = 1},
+                new DepartamentoModel { Nome="Ciencia de alimentos", InstituicaoId = 2}
             };
 
             foreach (DepartamentoModel d in departamentos)
