@@ -1,34 +1,43 @@
 ﻿@model Aplicacoes.Models.DepartamentoModel
 
 @{
-    Layout = null;
+    Layout = "_LayoutIES";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-
-    <div>
-        <h4>InstituicaoModel</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.DepartamentoId)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
-            
-        </dl>
+@section	styles	{
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+}
+<div class="card-block">
+    <div class="card-header	text-white bg-secondary text-center	h1"></div>
+    <div class="card-body">
+        <div class="form-group">
+            <label asp-for="DepartamentoId" class="control-label"></label>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa	fa-key" aria-hidden="true"></i>
+                </span>
+                <input asp-for="DepartamentoId" class="form-control" disabled="disabled" />
+            </div>
+            <label asp-for="Nome" class="control-label"></label>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa	fa-user-circle-o" aria-hidden="true"></i>
+                </span>
+                <input asp-for="Nome" class="form-control" disabled="disabled" />
+            </div>
+            <label asp-for="Instituicao.Nome" class="control-label"></label>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa	fa-user-circle-o" aria-hidden="true"></i>
+                </span>
+                <input asp-for="Instituicao.Nome" class="form-control" disabled="disabled" />
+            </div>
+        </div>
     </div>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
+    <div class="card-footer	bg-info	text-center	text-white">
+        <a asp-action="Edit" class="btn	btn-warning" asp-route-id="@Model.DepartamentoId">Alterar</a>	|
+        <a asp-action="Index" class="btn	btn-warning"> Retornar à listagem	de	departamentos</a>
     </div>
-</body>
-</html>
+</div>

@@ -83,7 +83,8 @@ namespace Aplicacoes.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId.Equals(id));
+            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
+            _context.Instituicoes.Where(i => departamento.InstituicaoId == i.InstituicaoId).Load();
 
             if (departamento == null)
             {
@@ -96,7 +97,13 @@ namespace Aplicacoes.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete (long? id)
         {
-            var departamento = _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId.Equals(id));
+            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
+            _context.Instituicoes.Where(i => departamento.InstituicaoId == i.InstituicaoId).Load();
+
+            if(departamento == null)
+            {
+                return NotFound("Error");
+            }
             return View(departamento);
         }
 
@@ -106,6 +113,8 @@ namespace Aplicacoes.Controllers
         {
             var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
             _context.Departamentos.Remove(departamento);
+            TempData["Message"] = "Departamento" + departamento.Nome.ToUpper() + "Foi Removido";
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
