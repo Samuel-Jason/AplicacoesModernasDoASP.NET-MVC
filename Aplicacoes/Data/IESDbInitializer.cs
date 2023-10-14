@@ -6,12 +6,25 @@ namespace Aplicacoes.Data
     {
         public static void Initialize(IESContext context)
         {
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
-            if(context.Departamentos.Any())
+            if (context.Departamentos.Any())
             {
                 return;
             }
+
+            var instituicoes = new InstituicaoModel[]
+            {
+                new InstituicaoModel {Nome="UniParaná", Endereco = "Paraná"},
+                new InstituicaoModel {Nome="UniAcre", Endereco = "Acre"}
+            };
+
+            foreach (InstituicaoModel i in instituicoes)
+            {
+                context.Instituicoes.Add(i);
+            }
+            context.SaveChanges();
 
             var departamentos = new DepartamentoModel[]
             {
@@ -19,7 +32,7 @@ namespace Aplicacoes.Data
                 new DepartamentoModel { Nome="Ciencia de alimentos"}
             };
 
-            foreach(DepartamentoModel d in departamentos)
+            foreach (DepartamentoModel d in departamentos)
             {
                 context.Departamentos.Add(d);
             }
