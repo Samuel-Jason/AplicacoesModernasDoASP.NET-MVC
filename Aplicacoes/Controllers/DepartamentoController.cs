@@ -1,4 +1,5 @@
 ﻿using Aplicacoes.Data;
+using Aplicacoes.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -98,6 +99,7 @@ namespace Aplicacoes.Controllers
             _context.Departamentos.Remove(departamento);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+
         }
     }
 }
