@@ -4,6 +4,7 @@ using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Aplicacoes.Controllers
 {
@@ -18,7 +19,10 @@ namespace Aplicacoes.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Departamentos.Include(i => i.Instituicao).OrderBy(c => c.Nome).ToListAsync());
+            return View(await _context.Departamentos
+                .Include(i => i.Instituicao)
+                .OrderBy(c => c.Nome)
+                .ToListAsync());
         }
 
         // public async Task<ActionResult> Index()
@@ -46,6 +50,21 @@ namespace Aplicacoes.Controllers
             return View(departamento);
         }
 
+        public async Task<IActionResult> Create()
+        {
+            var instituicoes = _context.Instituicoes
+                .OrderBy(i => i.Nome)
+                .ToList();
+            instituicoes.Insert(0, new InstituicaoModel()
+            {
+                InstituicaoId = 0,
+                Nome = "Selecione	a	instituição"
+            });
+            ViewBag.Instituicoes = instituicoes;
+            return View();
+        }
+
+
         [HttpPost]
         public async Task<ActionResult> Edit(long? id)
         {
@@ -54,8 +73,10 @@ namespace Aplicacoes.Controllers
                 return NotFound(); //retorna HTTPNOTFOUND COMO SE FOSSE UM HTTP 404
             }
 
-            var departamento = _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
-            ViewBag.Instituicoes = new SelectList(_context.Instituicoes.OrderBy(b => b.Nome), "InstituicaoID", "Nome", departamento.InstituicaoID);
+            var departamento = _context.Departamentos
+                .SingleOrDefaultAsync(m => m.DepartamentoId == id);
+            ViewBag.Instituicoes = new SelectList(_context.Instituicoes
+                .OrderBy(b => b.Nome), "InstituicaoID", "Nome", departamento.InstituicaoId);
             return View(departamento);
             await _context.SaveChangesAsync();
 
@@ -94,6 +115,18 @@ namespace Aplicacoes.Controllers
             return View(departamento);
         }
 
+        //	POST:	Departamento/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long? id)
+        {
+            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
+            _context.Departamentos.Remove(departamento);
+            TempData["Message"] = "Departamento	" + departamento.Nome.ToUpper() + "	foi	removido";
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpGet]
         public async Task<IActionResult> Delete (long? id)
         {
@@ -107,17 +140,6 @@ namespace Aplicacoes.Controllers
             return View(departamento);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long? id)
-        {
-            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
-            _context.Departamentos.Remove(departamento);
-            TempData["Message"] = "Departamento" + departamento.Nome.ToUpper() + "Foi Removido";
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-
-        }
+  
     }
 }
