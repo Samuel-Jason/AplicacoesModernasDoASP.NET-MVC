@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\_ComDepartamentos.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Views\_ComDepartamentos.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.3.2" />
     <PackageReference Include="BootstrapBlazor" Version="7.11.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />

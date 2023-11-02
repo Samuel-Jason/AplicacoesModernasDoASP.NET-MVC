@@ -50,7 +50,7 @@ namespace Aplicacoes.Controllers
             return View(departamento);
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create([Bind("Nome, InstituicaoID")] DepartamentoModel departamento)
         {
             var instituicoes = _context.Instituicoes
                 .OrderBy(i => i.Nome)
@@ -68,27 +68,16 @@ namespace Aplicacoes.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(long? id)
         {
-            if (id == null)
+            if (id != null)
             {
-                return NotFound(); //retorna HTTPNOTFOUND COMO SE FOSSE UM HTTP 404
+               var departamento = _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
+
+               ViewBag.Instituicoes = new SelectList(_context.Instituicoes.OrderBy(b => b.Nome), "InstituicaoID", "Nome", departamento.InstituicaoID);
+
+                 return View(departamento);
             }
-
-            var departamento = _context.Departamentos
-                .SingleOrDefaultAsync(m => m.DepartamentoId == id);
-            ViewBag.Instituicoes = new SelectList(_context.Instituicoes
-                .OrderBy(b => b.Nome), "InstituicaoID", "Nome", departamento.InstituicaoId);
-            return View(departamento);
-            await _context.SaveChangesAsync();
-
-            //    if(!= DepartamentoExists(DepartamentoController.DepartamentoID)) VERIFICA SE EXITE NA BASE ALGUM OBJ COM ID RECEBIDO
-            //        return NotFound()
-
-
-            if (departamento == null)
-            {
-                return NotFound(nameof(departamento));
-            }
-            return View(departamento);
+           
+            return NotFound(); //retorna HTTPNOTFOUND COMO SE FOSSE UM HTTP 404
         }
 
         private bool DepartamentoExistis(long? id)
