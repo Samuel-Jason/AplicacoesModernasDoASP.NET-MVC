@@ -1,45 +1,51 @@
-﻿@model Aplicacoes.Models.InstituicaoModel
-
+﻿@model Capitulo02.Models.InstituicaoModel
 @{
-    Layout = null;
+    Layout = "_LayoutIES";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-
-<div>
-    <h4>InstituicaoModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InstituicaoId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InstituicaoId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Endereco)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Endereco)
-        </dd>
-    </dl>
+@section	styles	{
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+}
+<div class="card-block">
+    <div class="card-header	text-white	bg-secondary	text-center	h1">
+        Exibindo	uma	instituição	existente
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-9">
+                <div class="form-group">
+                    <label asp-for="InstituicaoID" class="control-label"></label>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fafa-key" aria-hidden="true"></i>
+                        </span>
+                        <input asp-for="InstituicaoID" class="form-control" disabled="disabled" />
+                    </div>
+                    <label asp-for="Nome" class="control-label"></label>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fafa-user-circle-o" aria-hidden="true"></i>
+                        </span>
+                        <input asp-for="Nome" class="form-control" disabled="disabled" />
+                    </div>
+                    <label asp-for="Endereco" class="control-label"></label>
+                    <br />
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fafa-address-card-o" ariahidden="true"></i>
+                        </span>
+                        <input asp-for="Endereco" class="form-control" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                @Html.Partial("~/Views/Instituicao/_ComDepartamentos.cshtml",Model.Departamentos.ToList())
+            </div>
+        </div>
+    </div>
+    <div class="card-footer	bg-info	text-center	text-white">
+        <a asp-action="Edit" class="btn	btn-warning" asp-route-id="@Model.InstituicaoID">Alterar</a>	|
+        <a asp-action="Index" class="btn btn-warning">Retornar à listagem de	instituições</a>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
-</body>
-</html>
