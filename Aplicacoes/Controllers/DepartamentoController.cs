@@ -93,7 +93,7 @@ namespace Aplicacoes.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
+            var departamento = await _context.Instituicoes.Include(d => d.Departamentos).SingleOrDefaultAsync(m => m.InstituicaoId == id);
             _context.Instituicoes.Where(i => departamento.InstituicaoId == i.InstituicaoId).Load();
 
             if (departamento == null)
