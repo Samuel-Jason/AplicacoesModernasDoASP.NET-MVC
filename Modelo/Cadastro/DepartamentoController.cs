@@ -61,17 +61,17 @@ namespace Modelo.Cadastro
 
 
         [HttpPost]
-        public async Task<ActionResult> Edit(long? id)
+        public async Task<ActionResult> Edit(long? id, [Bind("DepartamentoID, Nome, InstituicaoID")] DepartamentoController departamentos)
         {
             if (id != null)
             {
-               var departamento = _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
+                var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
 
-               ViewBag.Instituicoes = new SelectList(_context.Instituicoes.OrderBy(b => b.Nome), "InstituicaoID", "Nome", departamento.InstituicaoID);
+                ViewBag.Instituicoes = new SelectList(_context.Instituicoes.OrderBy(b => b.Nome), "InstituicaoID", "Nome", departamento.InstituicaoId);
 
-                 return View(departamento);
+                return View(departamento);
             }
-           
+
             return NotFound(); //retorna HTTPNOTFOUND COMO SE FOSSE UM HTTP 404
         }
 
@@ -112,18 +112,18 @@ namespace Modelo.Cadastro
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete (long? id)
+        public async Task<IActionResult> Delete(long? id)
         {
             var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
             _context.Instituicoes.Where(i => departamento.InstituicaoId == i.InstituicaoId).Load();
 
-            if(departamento == null)
+            if (departamento == null)
             {
                 return NotFound("Error");
             }
             return View(departamento);
         }
 
-  
+
     }
 }
