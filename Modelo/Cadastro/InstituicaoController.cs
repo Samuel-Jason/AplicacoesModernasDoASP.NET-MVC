@@ -5,6 +5,8 @@ using Modelo.Cadastro;
 using System.Linq;
 using System.Data.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Aplicacoes.Controllers
 {
@@ -55,7 +57,7 @@ namespace Aplicacoes.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome, Endereco")] InstituicaoController instituicao)
+        public async Task<IActionResult> Create([Bind("Nome, Endereco")] InstituicaoModel instituicao)
         {
             try
             {
@@ -72,6 +74,36 @@ namespace Aplicacoes.Controllers
             return View(instituicao);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> Edit(long? id, [Bind("InstituicaoID, Nome, Endereco")] InstituicaoModel instituicao)
+        {
+            if (id == null || instituicao.InstituicaoId != id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await instituicaoDAL.GravarInstituicao(instituicao);
+                }
+                catch (DbUpdateException)
+                {
+                    // Correção: Removida a vírgula após a condição do if
+                    if (!await InstituicaoModel.Exists(instituicao.InstituicaoId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(instituicao);
+        }
 
         public async Task<IActionResult> Index()
         {
@@ -132,6 +164,15 @@ namespace Aplicacoes.Controllers
             }
             
             return View(instituicao);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long? id)
+        {
+            var instituicao = await instituicaoDAL.EliminarInstituicaoId((long) id);
+            TempData["Message"] = "Instituicao" + instituicao.Nome.ToUpper() + "foi removida");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

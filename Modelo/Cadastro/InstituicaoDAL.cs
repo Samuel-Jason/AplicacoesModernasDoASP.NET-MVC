@@ -43,5 +43,15 @@ namespace Modelo.Cadastro
             return instituicao;
         }
 
+        public async Task<InstituicaoModel> EliminarInstituicaoId(long id)
+        {
+            InstituicaoModel instituicao = await ObterInstituicaoId(id);
+            _context.Instituicoes.Remove(instituicao);
+            await _context.SaveChangesAsync();
+            return instituicao;
+        } 
+
+
+
     }
 }
