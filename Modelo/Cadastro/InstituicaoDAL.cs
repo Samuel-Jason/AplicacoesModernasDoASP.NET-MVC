@@ -1,5 +1,6 @@
 ﻿using Aplicacoes.Data;
 using Aplicacoes.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,11 @@ namespace Modelo.Cadastro
         public IQueryable<InstituicaoModel> ObterInstituicoesClassificadasPorNome()
         {
             return _context.Instituicoes.OrderBy(m => m.Nome);
+        }
+
+        public async Task<InstituicaoModel> ObterInstituicaoId(long id)
+        {
+            return await _context.Instituicoes.Include(d => d.Departamentos).SingleOrDefaultAsync(m => m.InstituicaoId == id);
         }
 
     }

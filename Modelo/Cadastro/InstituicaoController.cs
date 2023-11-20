@@ -1,12 +1,23 @@
-﻿using Aplicacoes.Models;
+﻿using Aplicacoes.Data;
+using Aplicacoes.Models;
 using Microsoft.AspNetCore.Mvc;
 using Modelo.Cadastro;
+using System.Linq;
+using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aplicacoes.Controllers
 {
     public class InstituicaoController : Controller
     {
+        private readonly IESContext _context;
+        private readonly InstituicaoDAL instituicaoDAL;
 
+        public InstituicaoController(IESContext context) 
+        {
+            _context = context;
+            instituicaoDAL = new InstituicaoDAL(context);
+        }
 
         private static IList<InstituicaoModel> instituicoes = new List<InstituicaoModel>()
         {
@@ -44,7 +55,7 @@ namespace Aplicacoes.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await InstituicaoDAL.ObterInstituicoesClassificadasPorNome().ToListAsync());
+            return View(await instituicaoDAL.ObterInstituicoesClassificadasPorNome().ToListAsync());
         }
 
         public IActionResult Create(InstituicaoModel instituicao)
@@ -84,6 +95,23 @@ namespace Aplicacoes.Controllers
                 return RedirectToAction("NotFound");
             }
 
+        }
+
+        public async Task<IActionResult> ObterVisaoInstituicaoId(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var instituicao = await instituicaoDAL.ObterInstituicaoId((long) id);
+
+            if(instituicao == null)
+            {
+                return NotFound();
+            }
+            
+            return View(instituicao);
         }
     }
 }
