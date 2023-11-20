@@ -1,45 +1,45 @@
 ﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal;
-@model Aplicacoes.Models.DepartamentoModel
-namespace Aplicacoes.Views
+@model Aplicacoes.Models.DepartamentoModel;
+namespace Aplicacoes.Views 
 {
-    public class _ComDepartamentos
+    public class _ComDepartamentos 
     {
-<div class="pane panel-primary">
-    <div class="panel-heading">
-        Relação de DEPARTAMENTOS registrados para a instituição
-    </div>
-    <div class="panel-body">
-        <table class="table	table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model  =>	model.DepartamentoId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model  =>	model.Nome)
-                    </th>
-                    <th>Instituicao</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DepartamentoID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Instituicao.Nome)
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    <div class="panel-footer panel-info">
-    </div>
-    }
-    }
+        <div class="pane panel-primary">
+            <div class="panel-heading">
+                Relação de DEPARTAMENTOS registrados para a instituição
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DepartamentoId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </th>
+                            <th>Instituicao</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DepartamentoID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Instituicao.Nome)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer panel-info"></div>
+        </div>
+     } 
+}

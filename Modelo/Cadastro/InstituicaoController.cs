@@ -1,10 +1,13 @@
 ﻿using Aplicacoes.Models;
 using Microsoft.AspNetCore.Mvc;
+using Modelo.Cadastro;
 
 namespace Aplicacoes.Controllers
 {
     public class InstituicaoController : Controller
     {
+
+
         private static IList<InstituicaoModel> instituicoes = new List<InstituicaoModel>()
         {
             new InstituicaoModel()
@@ -39,9 +42,9 @@ namespace Aplicacoes.Controllers
             }
         };
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(instituicoes);
+            return View(await InstituicaoDAL.ObterInstituicoesClassificadasPorNome().ToListAsync());
         }
 
         public IActionResult Create(InstituicaoModel instituicao)

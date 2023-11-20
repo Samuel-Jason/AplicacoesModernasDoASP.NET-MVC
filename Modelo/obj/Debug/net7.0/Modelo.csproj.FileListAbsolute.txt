@@ -1,0 +1,5 @@
+C:\Users\Jason\Desktop\PROJETOS PARA GITHUB\Aplicacoes\Modelo\obj\Debug\net7.0\Modelo.csproj.AssemblyReference.cache
+C:\Users\Jason\Desktop\PROJETOS PARA GITHUB\Aplicacoes\Modelo\obj\Debug\net7.0\Modelo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jason\Desktop\PROJETOS PARA GITHUB\Aplicacoes\Modelo\obj\Debug\net7.0\Modelo.AssemblyInfoInputs.cache
+C:\Users\Jason\Desktop\PROJETOS PARA GITHUB\Aplicacoes\Modelo\obj\Debug\net7.0\Modelo.AssemblyInfo.cs
+C:\Users\Jason\Desktop\PROJETOS PARA GITHUB\Aplicacoes\Modelo\obj\Debug\net7.0\Modelo.csproj.CoreCompileInputs.cache

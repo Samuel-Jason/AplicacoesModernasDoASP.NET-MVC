@@ -88,8 +88,10 @@ namespace Modelo.Cadastro
                 return NotFound();
             }
 
-            var departamento = await _context.Instituicoes.Include(d => d.Departamentos).SingleOrDefaultAsync(m => m.InstituicaoId == id);
-            _context.Instituicoes.Where(i => departamento.InstituicaoId == i.InstituicaoId).Load();
+            var departamento = await _context.Instituicoes
+                .Include(d => d.Departamentos)
+                .SingleOrDefaultAsync(m => m.InstituicaoId == id);
+                 _context.Instituicoes.Where(i => departamento.InstituicaoId == i.InstituicaoId).Load();
 
             if (departamento == null)
             {
@@ -114,7 +116,8 @@ namespace Modelo.Cadastro
         [HttpGet]
         public async Task<IActionResult> Delete(long? id)
         {
-            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoId == id);
+            var departamento = await _context.Departamentos
+                .SingleOrDefaultAsync(m => m.DepartamentoId == id);
             _context.Instituicoes.Where(i => departamento.InstituicaoId == i.InstituicaoId).Load();
 
             if (departamento == null)
