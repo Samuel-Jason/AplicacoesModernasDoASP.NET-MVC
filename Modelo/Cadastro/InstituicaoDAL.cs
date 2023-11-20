@@ -51,6 +51,14 @@ namespace Modelo.Cadastro
             return instituicao;
         } 
 
+        private async Task<bool> InstituicaoExists(long? id)
+        {
+            if (id == null)
+            {
+                return false;
+            }
+            return await InstituicaoDAL.ObterInstituicaoId((long) id) != null;
+        }
 
 
     }
