@@ -53,6 +53,26 @@ namespace Aplicacoes.Controllers
             }
         };
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Nome, Endereco")] InstituicaoController instituicao)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await instituicaoDAL.GravarInstituicao(instituicao);
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Não foi possivel inserir os dados");
+            }
+            return View(instituicao);
+        }
+
+
         public async Task<IActionResult> Index()
         {
             return View(await instituicaoDAL.ObterInstituicoesClassificadasPorNome().ToListAsync());
@@ -61,8 +81,7 @@ namespace Aplicacoes.Controllers
         public IActionResult Create(InstituicaoModel instituicao)
         {
             instituicoes.Add(instituicao);
-            instituicao.InstituicaoId =
-                instituicoes.Select(i => i.InstituicaoId).Max() + 1;
+            instituicao.InstituicaoId = instituicoes.Select(i => i.InstituicaoId).Max() + 1;
             return RedirectToAction("Index");
         }
 
@@ -73,10 +92,11 @@ namespace Aplicacoes.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details(long id)
+        public async ActionResult Details(long id)
         {
-            return View(instituicoes.Where(i => i.InstituicaoId == id).FirstOrDefault());
+            return await ObterVisaoInstituicaoId(id);
         }
+            //return View(instituicoes.Where(i => i.InstituicaoId == id).FirstOrDefault());
 
         public IActionResult Delete(int id)
         {

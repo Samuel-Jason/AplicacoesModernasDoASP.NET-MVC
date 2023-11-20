@@ -28,5 +28,20 @@ namespace Modelo.Cadastro
             return await _context.Instituicoes.Include(d => d.Departamentos).SingleOrDefaultAsync(m => m.InstituicaoId == id);
         }
 
+        public async Task<InstituicaoModel> GravarInstituicao(InstituicaoModel instituicao)
+        {
+            if(instituicao.InstituicaoId == null)
+            {
+                _context.Instituicoes.Add(instituicao);
+            }
+            else
+            {
+                _context.Update(instituicao);
+            }
+
+            await _context.SaveChangesAsync();
+            return instituicao;
+        }
+
     }
 }
