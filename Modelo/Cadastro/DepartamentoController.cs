@@ -11,6 +11,8 @@ namespace Modelo.Cadastro
     public class DepartamentoController : Controller
     {
         private readonly IESContext _context;
+        private readonly DepartamentoDAL departamentoDAL;
+        private readonly InstituicaoDAL instituicaoDAL;
 
         public DepartamentoController(IESContext context)
         {
@@ -27,7 +29,7 @@ namespace Modelo.Cadastro
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind("Nome, InstituicaoId")] DepartamentoController departamento)
+        public async Task<ActionResult> Create([Bind("Nome, InstituicaoId")] DepartamentoModel departamento)
         {
             try
             {
@@ -61,7 +63,7 @@ namespace Modelo.Cadastro
 
 
         [HttpPost]
-        public async Task<ActionResult> Edit(long? id, [Bind("DepartamentoID, Nome, InstituicaoID")] DepartamentoController departamentos)
+        public async Task<ActionResult> Edit(long? id, [Bind("DepartamentoID, Nome, InstituicaoID")] DepartamentoModel departamentos)
         {
             if (id != null)
             {

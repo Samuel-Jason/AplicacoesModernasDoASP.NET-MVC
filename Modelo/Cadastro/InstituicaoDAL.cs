@@ -57,7 +57,7 @@ namespace Modelo.Cadastro
             {
                 return false;
             }
-            return await InstituicaoDAL.ObterInstituicaoId((long) id) != null;
+            return await ObterInstituicaoId((long) id) != null;
         }
 
 

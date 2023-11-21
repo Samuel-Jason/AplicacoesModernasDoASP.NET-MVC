@@ -1,4 +1,5 @@
 ﻿using Aplicacoes.Data;
+using Aplicacoes.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace Modelo.Cadastro
             return departamento;
         }
 
-        public async Task<DepartamentoController> GravarDepartamento(DepartamentoController departamento)
+        public async Task<DepartamentoController> GravarDepartamento(DepartamentoModel departamento)
         {
             if (departamento.DepartamentoId == 0) // Alterado de null para 0
             {
