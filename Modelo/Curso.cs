@@ -13,6 +13,6 @@ namespace Modelo
         public string Nome { get; set; }
         public long? DepartamentoID { get; set;}
         public DepartamentoModel Departamento { get; set; }
-        public virtual ICollection<CursoDisciplina> CursoDisciplinas { get; set; }
+        public virtual ICollection<CursoDisciplina> CursoDisciplina { get; set; }
     }
 }
