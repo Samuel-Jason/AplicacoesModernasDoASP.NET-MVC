@@ -13,6 +13,7 @@ namespace Aplicacoes.Data
             public DbSet<InstituicaoModel> Instituicoes { get; set; }
             public DbSet<Curso> Cursos { get; set; }
             public DbSet<Disciplina> Disciplinas { get; set; }
+            public DbSet<Academico> Academicos { get; set; }
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
