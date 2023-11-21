@@ -8,5 +8,9 @@ namespace Modelo
 {
     public class Disciplina
     {
+        public long? DisciplinaID { get; set; }
+        public string Nome { get; set; }
+
+        public virtual ICollection<CursoDisciplina> CursoDisciplina { get; set; }
     }
 }
