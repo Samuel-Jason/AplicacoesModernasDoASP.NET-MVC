@@ -7,5 +7,6 @@
 
         public long? InstituicaoId { get; set; }
         public InstituicaoModel Instituicao { get; set; }
+        public virtual ICollection<Curso> Cursos { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Modelo
 {
-    public class Curso
+    public class Curso 
     {
         public long? CursoID {  get; set; }
         public string Nome { get; set; }
