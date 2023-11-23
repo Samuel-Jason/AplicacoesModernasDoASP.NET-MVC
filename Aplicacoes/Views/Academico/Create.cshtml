@@ -1,4 +1,9 @@
-﻿@model Modelo.Discente.Academico @{ Layout = "_LayoutIES"; }
+﻿@model Aplicacoes.Views.Academico.Create;
+
+@{ 
+    Layout = "_LayoutIES"; 
+}
+
 
 <div class="card-block">
     <div class="card-header text-white bg-danger text-center h1">Registrando um novo acadêmico</div>
@@ -31,4 +36,4 @@
     </div>
 </div>
 
-@section ScriptPage { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}}
+@section ScriptPage{ @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}}
