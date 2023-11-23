@@ -1,0 +1,43 @@
+﻿@model Aplicacoes.Models.Academico
+
+@{
+    Layout = "_LayoutIES";
+}
+@section	styles	{
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+}
+<div class="card-block">
+    <div class="card-header	text-white bg-secondary text-center	h1"></div>
+    <div class="card-body">
+        <div class="form-group">
+            <label asp-for="AcademicoID" class="control-label"></label>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fafa-key" aria-hidden="true"></i>
+                </span>
+                <input asp-for="AcademicoID" class="form-control" disabled="disabled" />
+            </div>
+            <label asp-for="Nome" class="control-label"></label>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fafa-user-circle-o" aria-hidden="true"></i>
+                </span>
+                <input asp-for="Nome" class="form-control" disabled="disabled" />
+            </div>
+            <label asp-for="Academico.Nascimento" class="control-label"></label>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fafa-user-circle-o" aria-hidden="true"></i>
+                </span>
+                <input asp-for="Academico.Nascimento" class="form-control" disabled="disabled" />
+            </div>
+        </div>
+    </div>
+    <div class="card-footer	bg-info	text-center	text-white">
+        <a asp-action="Edit" class="btn	btn-warning" asp-route-id="@Model.AcademicoID">Alterar</a>	|
+        <a asp-action="Index" class="btn btn-warning"> Retornar à listagem	de	Academicos</a>
+    </div>
+</div>
