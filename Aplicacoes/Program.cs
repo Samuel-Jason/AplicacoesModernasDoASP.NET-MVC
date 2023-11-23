@@ -1,17 +1,23 @@
 using Aplicacoes.Data;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 
 namespace Aplicacoes
 {
     public class Program
     {
+        public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddEntityFrameworkSqlServer().AddDbContext<IESContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
+            builder.Services.AddEntityFrameworkSqlServer().AddDbContext<IESContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
 
             var app = builder.Build();
 
