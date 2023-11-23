@@ -8,10 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Academico\Create.cshtml" />
     <Content Remove="Views\_ComDepartamentos.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Views\Academico\Create.cshtml" />
     <Compile Include="Views\_ComDepartamentos.cshtml" />
   </ItemGroup>
 
