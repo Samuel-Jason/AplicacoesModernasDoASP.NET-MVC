@@ -20,13 +20,13 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Regis troAcademico)
+                            @Html.DisplayNameFor(model => model.RegistroAcademico)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Nome)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Nasci mento)
+                            @Html.DisplayNameFor(model => model.Nascimento)
                         </th>
                         <th></th>
                     </tr>
@@ -36,24 +36,18 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Re gistroAcademico)
+                                @Html.DisplayFor(modelItem => item.RegistroAcademico)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.No me)
+                                @Html.DisplayFor(modelItem => item.Nome)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Na scimento)
+                                @Html.DisplayFor(modelItem => item.Nascimento)
                             </td>
                             <td>
-                                <a asp-action="Edit"
-                                   asp-route-id="@item.AcademicoID">
-                                    Edit
-                                </a>
-                                | <a asp-action="Details" asp-route-id="@item.AcademicoID">Details</a> |
-                                <a asp-action="Delete"
-                                   asp-route-id="@item.AcademicoID">
-                                    Delete
-                                </a>
+                                <a asp-action="Edit" asp-route-id="@item.AcademicoID"> Edit </a>
+                                <a asp-action="Details" asp-route-id="@item.AcademicoID"> Details </a> |
+                                <a asp-action="Delete" asp-route-id="@item.AcademicoID"> Delete </a>
                             </td>
                         </tr>
                     }
@@ -61,9 +55,7 @@
             </table>
         </div>
         <div class="card-footer bg-success text-center">
-            <a asp-action="Create" class="btn-success">
-                Criar um novo acadêmico
-            </a>
+            <a asp-action="Create" class="btn-success">Criar um novo acadêmico</a>
         </div>
     </div>
 
